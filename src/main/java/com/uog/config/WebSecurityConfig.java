@@ -13,27 +13,31 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-	/**
-	 * Constructor disables the default security settings
-	 */
-	public WebSecurityConfig() {
-		super(true);
-	}
+    /**
+     * Constructor disables the default security settings
+     */
+    public WebSecurityConfig() {
+        super(true);
+    }
 
-	@Override
-	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("GET", "/login/checktoken");
-		web.ignoring().antMatchers("GET", "/oauth/check_token");
-		web.ignoring().antMatchers("POST", "/oauth/check_token");
-		web.ignoring().antMatchers("POST", "/loginuser");
-		web.ignoring().antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources", "/configuration/security",
-				"/swagger-ui.html", "/webjars/**");
-		web.ignoring().antMatchers("/swagger-resources/**");
-	}
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("GET", "/login/checktoken");
+        web.ignoring().antMatchers("GET", "/oauth/check_token");
+        web.ignoring().antMatchers("POST", "/oauth/check_token");
+        web.ignoring().antMatchers("POST", "/loginuser");
+        web.ignoring().antMatchers("GET", "/product");
+        web.ignoring().antMatchers("POST", "/product");
+        web.ignoring().antMatchers("PUT", "/product");
+        web.ignoring().antMatchers("DELETE", "/product");
+        web.ignoring().antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources", "/configuration/security",
+                "/swagger-ui.html", "/webjars/**");
+        web.ignoring().antMatchers("/swagger-resources/**");
+    }
 
-	@Bean
-	@Override
-	public AuthenticationManager authenticationManagerBean() throws Exception {
-		return super.authenticationManagerBean();
-	}
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
 }

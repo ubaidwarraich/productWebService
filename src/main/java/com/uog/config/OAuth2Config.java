@@ -18,37 +18,37 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 @EnableAuthorizationServer
 public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
 
-	public static final String RESOURCE_ID1 = "restservice1";
+    public static final String RESOURCE_ID1 = "restservice1";
 
-	@Autowired
-	@Qualifier("userDetailsService")
-	private UserDetailsService userDetailsService;
+    @Autowired
+    @Qualifier("userDetailsService")
+    private UserDetailsService userDetailsService;
 
-	@Autowired
-	@Qualifier("authenticationManagerBean")
-	private AuthenticationManager authenticationManager;
+    @Autowired
+    @Qualifier("authenticationManagerBean")
+    private AuthenticationManager authenticationManager;
 
-	@Value("${gigy.oauth.tokenTimeout:7200}")
-	private int expiration;
+    @Value("${gigy.oauth.tokenTimeout:7200}")
+    private int expiration;
 
-	// password encryptor
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+    // password encryptor
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-	@Override
-	public void configure(AuthorizationServerEndpointsConfigurer configurer) throws Exception {
-		configurer.authenticationManager(authenticationManager);
-		configurer.userDetailsService(userDetailsService);
-	}
+    @Override
+    public void configure(AuthorizationServerEndpointsConfigurer configurer) throws Exception {
+        configurer.authenticationManager(authenticationManager);
+        configurer.userDetailsService(userDetailsService);
+    }
 
-	@Override
-	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-		clients.inMemory().withClient("product").secret("secret").accessTokenValiditySeconds(expiration)
-				.scopes("read", "write").authorizedGrantTypes("password", "authorization_code", "refresh_token")
-				.resourceIds(RESOURCE_ID1);
+    @Override
+    public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+        clients.inMemory().withClient("product").secret("secret").accessTokenValiditySeconds(expiration)
+                .scopes("read", "write").authorizedGrantTypes("password", "authorization_code", "refresh_token")
+                .resourceIds(RESOURCE_ID1);
 
-	}
+    }
 
 }

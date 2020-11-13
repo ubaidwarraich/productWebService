@@ -1,4 +1,4 @@
-//package com.cwiztech.config;
+package com.uog.config;//package com.cwiztech.config;
 //
 //import org.springframework.context.annotation.Bean;
 //import org.springframework.context.annotation.Configuration;
